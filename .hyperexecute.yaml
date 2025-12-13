@@ -1,0 +1,57 @@
+version: 1
+name: Playwright HyperExecute Run
+
+# Secrets declared here will be pulled from the HyperExecute dashboard's Secret Management
+secrets:
+  - LT_USERNAME
+  - LT_ACCESS_KEY
+
+# Environment variables injected into the test run (maps secrets to env vars)
+env:
+  LT_USERNAME: ${secrets.LT_USERNAME}
+  LT_ACCESS_KEY: ${secrets.LT_ACCESS_KEY}
+
+# Matrix of environments (at least two different OS/browser combos)
+matrix:
+  environments:
+    - browserName: Chrome
+      browserVersion: latest
+      platform: Windows 10
+    - browserName: Chrome
+      browserVersion: latest
+      platform: Linux
+
+# Commands that run before the tests (install deps, browsers)
+pre:
+  - npm ci
+  - npx playwright install --with-deps
+
+# Simple dependency cache for faster subsequent runs
+cache:
+  - key: node-modules-{{ checksum "package-lock.json" }}
+    paths:
+      - node_modules
+
+# Artifacts to collect from each environment (reports, screenshots, videos, traces)
+artifacts:
+  - name: playwright-report
+    path: playwright-report
+    type: directory
+  - name: test-results
+    path: test-results
+    type: directory
+  - name: local-test-results
+    path: pw-on-lt/test-results
+    type: directory
+
+# Test command and parallel execution
+run:
+  command: npx playwright test --reporter=html --output=test-results
+  parallel: true
+
+# Optional post steps (left empty, but kept here as an example)
+post: []
+# Notes:
+# - HyperExecute YAML schema may vary; treat this file as a starting template.
+# - Ensure the `secrets` listed are created in the HyperExecute dashboard or passed
+#   via your CI (GitHub Actions) as repository secrets.

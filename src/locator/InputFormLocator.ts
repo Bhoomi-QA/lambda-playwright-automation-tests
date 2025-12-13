@@ -1,0 +1,13 @@
+export const NAME_INPUT = '#name';
+export const EMAIL_INPUT = '#inputEmail4';
+export const PASSWORD_INPUT = '#inputPassword4';
+export const COMPANY_INPUT = '#company';
+export const WEBSITE_INPUT = '#websitename';
+export const COUNTRY_COMBOBOX = { role: 'combobox', name: 'Country'  };
+export const CITY_INPUT = '#inputCity';
+export const ADDRESS1_INPUT = '#inputAddress1';
+export const ADDRESS2_INPUT = '#inputAddress2';
+export const STATE_INPUT = '#inputState';
+export const ZIP_INPUT = '#inputZip';
+export const SUBMIT_BUTTON = { role: 'button', name: 'Submit' };
+export const SUCCESS_TEXT = 'Thanks for contacting us, we will get back to you shortly.';
