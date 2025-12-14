@@ -40,6 +40,17 @@ A sample GitHub Actions workflow is provided at `.github/workflows/hyperexecute.
 - Add `LT_USERNAME` and `LT_ACCESS_KEY` to this repository's **GitHub Secrets** (Settings → Secrets). The workflow will expose them as environment variables to the HyperExecute run.
 - The workflow installs dependencies, optionally installs the HyperExecute CLI, and runs `npx hyperexecute --config .hyperexecute.yaml`.
 
+### CI: Playwright tests on GitHub Actions
+
+A GitHub Actions workflow is added at `.github/workflows/playwright.yml`. It:
+
+- runs on push and pull requests to `main`.
+- installs dependencies and Playwright browsers.
+- runs `npx playwright test` and generates an HTML report.
+- uploads the `playwright-report` directory as a workflow artifact.
+
+If you want cloud runs on LambdaTest from CI, add `LT_USERNAME` and `LT_ACCESS_KEY` to the repository's **Secrets** and adjust the workflow to use `connectOptions` or the HyperExecute workflow.
+
 ## Files added
 
 - `.hyperexecute.yaml` — example HyperExecute configuration (matrix, artifacts, caching, secrets).

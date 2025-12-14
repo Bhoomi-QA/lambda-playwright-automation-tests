@@ -1,0 +1,19 @@
+image: mcr.microsoft.com/playwright:v1.49.0-jammy
+
+tasks:
+  - name: Setup & Run Tests
+    init: |
+      npm ci
+      npx playwright install --with-deps
+    command: |
+      # Run locally within Gitpod container (debug mode)
+      npx playwright test --project=local-debug
+      # Or run cloud projects (ensure env vars are set in Gitpod):
+      # export LT_USERNAME=your_user && export LT_ACCESS_KEY=your_key
+      # npx playwright test --project=cloud-chromium --project=cloud-firefox --project=cloud-webkit
+      # Or run all projects including local and cloud:
+      # npx playwright test --project=local-debug --project=cloud-chromium --project=cloud-firefox --project=cloud-webkit
+
+# Notes:
+# - Set `LT_USERNAME` and `LT_ACCESS_KEY` as Gitpod environment variables for cloud runs.
+# - The image includes Playwright and browsers; adjust if needed.
